@@ -48,7 +48,7 @@ fun UpdateCheckUI() {
     val developerUpdatedOn = remember { mutableStateOf("") }
     val userUpdatedOn = remember { mutableStateOf("") }
 
-    val (isAppOutdated, _) = checkUpdateStatus(developerUpdatedOn.value, userUpdatedOn.value)
+    val (isAppOutdated, daysOutOfDate) = checkUpdateStatus(developerUpdatedOn.value, userUpdatedOn.value)
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -56,6 +56,10 @@ fun UpdateCheckUI() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = if (isAppOutdated) "The installed app is out of date." else "The installed app is up to date.")
+
+        if (isAppOutdated) {
+            Text(text = "Days out of date: $daysOutOfDate")
+        }
 
         OutlinedTextField(
             modifier = Modifier.padding(4.dp),
