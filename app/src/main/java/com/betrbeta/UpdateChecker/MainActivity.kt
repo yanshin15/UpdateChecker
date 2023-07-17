@@ -13,7 +13,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,10 +34,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             UpdateCheckerTheme {
                 // A surface container using the 'background' color from the theme
-
-                run {
-                    UpdateCheckUI()
-                }
+                UpdateCheckUI()
             }
         }
     }
@@ -52,7 +48,7 @@ fun UpdateCheckUI() {
     val developerUpdatedOn = remember { mutableStateOf("") }
     val userUpdatedOn = remember { mutableStateOf("") }
 
-    val (isAppOutdated, daysOutOfDate) = checkUpdateStatus(developerUpdatedOn.value, userUpdatedOn.value)
+    val (isAppOutdated, _) = checkUpdateStatus(developerUpdatedOn.value, userUpdatedOn.value)
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -61,17 +57,12 @@ fun UpdateCheckUI() {
     ) {
         Text(text = if (isAppOutdated) "The installed app is out of date." else "The installed app is up to date.")
 
-        if (isAppOutdated) {
-            Text(text = "Days out of date: $daysOutOfDate")
-        }
-
         OutlinedTextField(
             modifier = Modifier.padding(4.dp),
             value = developerUpdatedOn.value,
             onValueChange = { developerUpdatedOn.value = it },
-            placeholder = { Text(text = "Last Dev update date (DD-MM-YYYY)") },
+            placeholder = { Text(text = "Last Developer update date (DD-MM-YYYY)") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            visualTransformation = DateTransform(),
             singleLine = true
         )
 
@@ -81,7 +72,6 @@ fun UpdateCheckUI() {
             onValueChange = { userUpdatedOn.value = it },
             placeholder = { Text(text = "Last User update date (DD-MM-YYYY)") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            visualTransformation = DateTransform(),
             singleLine = true
         )
     }
