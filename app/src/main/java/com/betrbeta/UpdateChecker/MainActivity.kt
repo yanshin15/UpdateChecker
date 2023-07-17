@@ -67,6 +67,7 @@ fun UpdateCheckUI() {
             onValueChange = { developerUpdatedOn.value = it },
             placeholder = { Text(text = "Last Developer update date (DD-MM-YYYY)") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            visualTransformation = DateTransform(),
             singleLine = true
         )
 
@@ -76,6 +77,7 @@ fun UpdateCheckUI() {
             onValueChange = { userUpdatedOn.value = it },
             placeholder = { Text(text = "Last User update date (DD-MM-YYYY)") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            visualTransformation = DateTransform(),
             singleLine = true
         )
     }
@@ -83,8 +85,8 @@ fun UpdateCheckUI() {
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun checkUpdateStatus(developerUpdateDate: String, userUpdateDate: String): Pair<Boolean, Long> {
-    val developerDate = parseDateString(developerUpdateDate, "dd-MM-yyyy")
-    val userDate = parseDateString(userUpdateDate, "dd-MM-yyyy")
+    val developerDate = parseDateString(developerUpdateDate, "ddMMyyyy")
+    val userDate = parseDateString(userUpdateDate, "ddMMyyyy")
 
     val isAppOutdated = developerDate != null && userDate != null && developerDate.isAfter(userDate)
     val daysOutOfDate = if (isAppOutdated) ChronoUnit.DAYS.between(userDate, developerDate) else 0
