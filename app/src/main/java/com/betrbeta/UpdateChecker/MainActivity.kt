@@ -1,10 +1,12 @@
 package com.betrbeta.UpdateChecker
 
+import android.graphics.Color.rgb
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +20,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -51,7 +56,10 @@ fun UpdateCheckUI() {
     val (isAppOutdated, daysOutOfDate) = checkUpdateStatus(developerUpdatedOn.value, userUpdatedOn.value)
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(rgb(240, 240, 240)))
+        ,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -62,22 +70,24 @@ fun UpdateCheckUI() {
         }
 
         OutlinedTextField(
-            modifier = Modifier.padding(4.dp),
+            modifier = Modifier
+                .padding(4.dp),
             value = developerUpdatedOn.value,
             onValueChange = { developerUpdatedOn.value = it },
-            placeholder = { Text(text = "Last Developer update date (DD-MM-YYYY)") },
+            placeholder = { Text(text = stringResource(R.string.devUpdateString)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             visualTransformation = DateTransform(),
             singleLine = true
         )
 
         OutlinedTextField(
-            modifier = Modifier.padding(4.dp),
+            modifier = Modifier
+                .padding(4.dp),
             value = userUpdatedOn.value,
             onValueChange = { userUpdatedOn.value = it },
-            placeholder = { Text(text = "Last User update date (DD-MM-YYYY)") },
+            placeholder = { Text(text = stringResource(R.string.userUpdateString)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            visualTransformation = DateTransform(),
+            visualTransformation = DateTransform(), //makes input visually have dashes
             singleLine = true
         )
     }
@@ -85,7 +95,7 @@ fun UpdateCheckUI() {
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun checkUpdateStatus(developerUpdateDate: String, userUpdateDate: String): Pair<Boolean, Long> {
-    val developerDate = parseDateString(developerUpdateDate, "ddMMyyyy")
+    val developerDate = parseDateString(developerUpdateDate, "ddMMyyyy") //dashes are removed here to take input
     val userDate = parseDateString(userUpdateDate, "ddMMyyyy")
 
     val isAppOutdated = developerDate != null && userDate != null && developerDate.isAfter(userDate)
@@ -97,7 +107,7 @@ fun checkUpdateStatus(developerUpdateDate: String, userUpdateDate: String): Pair
 @RequiresApi(Build.VERSION_CODES.O)
 fun parseDateString(dateString: String, pattern: String): LocalDate? {
     return try {
-        val formatter = DateTimeFormatter.ofPattern(pattern)
+        val formatter = DateTimeFormatter.ofPattern(pattern) //formats string with a given pattern
         LocalDate.parse(dateString, formatter)
     } catch (e: DateTimeParseException) {
         null
