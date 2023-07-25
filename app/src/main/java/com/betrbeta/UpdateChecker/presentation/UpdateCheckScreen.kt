@@ -28,6 +28,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.betrbeta.UpdateChecker.components.DateTransform
+import com.betrbeta.UpdateChecker.components.Screen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -64,7 +66,7 @@ fun UpdateCheckUI(navController : NavHostController) {
                     contentDescription = "Notification",
                     modifier = Modifier.clickable(
                         onClick = {
-                            navController?.navigate(Screen.Notification.route)
+                            navController.navigate(Screen.Notification.route)
                         })
                 )
             }

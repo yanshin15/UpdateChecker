@@ -1,4 +1,4 @@
-package com.betrbeta.UpdateChecker
+package com.betrbeta.UpdateChecker.components
 
 sealed class Screen(val route: String){
     object Home: Screen(route = "home_screen")

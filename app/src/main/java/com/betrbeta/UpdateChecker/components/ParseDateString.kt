@@ -1,4 +1,4 @@
-package com.betrbeta.UpdateChecker
+package com.betrbeta.UpdateChecker.components
 
 import android.os.Build
 import androidx.annotation.RequiresApi

@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.betrbeta.UpdateChecker.components.Screen
 
 @Composable
 fun NotificationUI(navController : NavHostController) {
@@ -52,7 +53,7 @@ fun NotificationUI(navController : NavHostController) {
                     .padding(12.dp, 0.dp, 0.dp, 0.dp)
                     .clickable(
                         onClick = {
-                            navController?.navigate(Screen.Home.route)
+                            navController.navigate(Screen.Home.route)
                         }
                     )
             )

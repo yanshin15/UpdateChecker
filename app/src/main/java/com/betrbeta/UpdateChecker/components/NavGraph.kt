@@ -1,4 +1,4 @@
-package com.betrbeta.UpdateChecker
+package com.betrbeta.UpdateChecker.components
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -6,6 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.betrbeta.UpdateChecker.NotificationUI
+import com.betrbeta.UpdateChecker.UpdateCheckUI
 
 
 @RequiresApi(Build.VERSION_CODES.O)

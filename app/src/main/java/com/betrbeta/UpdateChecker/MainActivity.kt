@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.navigation.compose.rememberNavController
+import com.betrbeta.UpdateChecker.components.BuildNavGraph
 import com.betrbeta.UpdateChecker.ui.theme.UpdateCheckerTheme
 
 class MainActivity : ComponentActivity() {

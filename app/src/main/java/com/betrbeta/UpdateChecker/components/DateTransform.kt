@@ -1,4 +1,4 @@
-package com.betrbeta.UpdateChecker
+package com.betrbeta.UpdateChecker.components
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping
