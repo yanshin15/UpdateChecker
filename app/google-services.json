@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "665754813881",
+    "project_id": "updatecheckernotifications",
+    "storage_bucket": "updatecheckernotifications.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665754813881:android:29e4235f7afd2a87be6268",
+        "android_client_info": {
+          "package_name": "com.betrbeta.UpdateChecker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "665754813881-e9tgr3jr2b0p5p2o8jptd9kja6j89g1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1m0Npcz8frKtTcBQeMyFoZyv9LUQ5rm4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "665754813881-e9tgr3jr2b0p5p2o8jptd9kja6j89g1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
