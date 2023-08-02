@@ -23,10 +23,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.betrbeta.UpdateChecker.components.Screen
+import com.betrbeta.UpdateChecker.viewmodels.NotificationViewModel
 
 @Composable
 fun NotificationUI(navController : NavHostController) {
@@ -152,7 +156,69 @@ fun NotificationUI(navController : NavHostController) {
             Text(text = "June", color = Color.White)
         }
 
-//        LazyColumn(content = )
+        val viewModel: NotificationViewModel = viewModel()
 
-    }
+        // Get the list of notifications from the ViewModel
+        val notifications = viewModel.getNotifications()
+
+//        NotificationItem(notifications = notifications)
+
+
+            }
+
+        }
+
+
+
+//@Composable
+//fun NotificationItem(notifications: List<Notifications>) {
+//
+//    LazyColumn {
+//
+//        items(5) { notification ->
+//            Surface(
+//                color = Color(79, 87, 95),
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .padding(8.dp)
+//            ) {
+//                Column(
+//                    modifier = Modifier.fillMaxWidth()
+//                ) {
+//                    // Display the notification image
+//                    Image(
+//                        painter = painterResource(id = notification.image),
+//                        contentDescription = "Notification Image",
+//                        modifier = Modifier
+//                            .fillMaxHeight()
+//                            .width(50.dp)
+//                    )
+//
+//                    Spacer(modifier = Modifier.height(8.dp))
+//
+//                    // Display the notification message
+//                    Text(
+//                        text = notification.message,
+//                        color = Color.White
+//                    )
+//                }
+//            }
+//        }
+//    }
+//}
+
+
+
+@Preview(showBackground = true)
+@Composable
+fun NotificationPreview() {
+    // Create the ViewModel instance using viewModel() delegate
+    val viewModel: NotificationViewModel = viewModel()
+
+    // Get the list of notifications from the ViewModel
+    val notifications = viewModel.getNotifications()
+    NotificationUI(navController = rememberNavController())
+//    NotificationItem(notifications = notifications)
+
+
 }

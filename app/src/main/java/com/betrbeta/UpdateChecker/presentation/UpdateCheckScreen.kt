@@ -1,6 +1,10 @@
 package com.betrbeta.UpdateChecker
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,23 +22,52 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.betrbeta.UpdateChecker.components.DateTransform
 import com.betrbeta.UpdateChecker.components.Screen
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UpdateCheckUI(navController : NavHostController) {
+
+
+    val context = LocalContext.current
+    var hasNotificationPermission by remember {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            mutableStateOf(
+                ContextCompat.checkSelfPermission(
+                    context, Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED
+            )
+        } else mutableStateOf(true)
+    }
+
+    val permissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = {isGranted ->
+            hasNotificationPermission = isGranted
+
+        }
+    )
+
+
     val developerUpdatedOn = remember { mutableStateOf("") }
     val userUpdatedOn = remember { mutableStateOf("") }
 
@@ -66,7 +99,11 @@ fun UpdateCheckUI(navController : NavHostController) {
                     contentDescription = "Notification",
                     modifier = Modifier.clickable(
                         onClick = {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !hasNotificationPermission) {
+                            permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                        }
                             navController.navigate(Screen.Notification.route)
+
                         })
                 )
             }
@@ -103,6 +140,21 @@ fun UpdateCheckUI(navController : NavHostController) {
                 visualTransformation = DateTransform(), //makes input visually have dashes
                 singleLine = true
             )
+
+
+
         }
+
     }
+
 }
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+@Preview
+fun UpdatePreview(){
+
+    UpdateCheckUI(navController = rememberNavController())
+}
+
+
+
