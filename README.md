@@ -9,3 +9,7 @@ Obtained from: Playstore App /Profile /Manage App and Devices/See details /expan
 1. if installed app is out of date or not
 
 2. if yes, how many days out of date is it?
+
+## Updated to add notifications with FIrebase Cloud Messaging
+
+
